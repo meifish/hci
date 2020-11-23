@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Pages/MyRoute.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,16 +10,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SSE',
-      theme: ThemeData(
-        // Define the default brightness and colors.
-        brightness: Brightness.dark,
-        primaryColor: Colors.lightBlue[800],
-        accentColor: Colors.cyan[600],
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'SSE'),
-    );
+        title: 'SSE',
+        theme: ThemeData(
+          // Define the default brightness and colors.
+          brightness: Brightness.dark,
+          primaryColor: Colors.lightBlue[800],
+          accentColor: Colors.cyan[600],
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: MyHomePage(title: 'SSE'),
+        routes: {
+          '/My Route': (context) => MyRoute(),
+        });
   }
 }
 
