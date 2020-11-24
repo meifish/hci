@@ -17,23 +17,33 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 80),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              MenuOption(
-                  option: 'My Routes', route: '/MyRoute', icon: Icons.favorite),
-              MenuOption(
-                  option: 'Use An Elevator',
-                  route: '/MyRoute',
-                  icon: Icons.elevator),
-              MenuOption(
-                  option: 'Share Access', route: '/MyRoute', icon: Icons.share),
-              MenuOption(
-                  option: 'Setting', route: '/MyRoute', icon: Icons.settings),
-            ],
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/elevator1.jpg"),
+                fit: BoxFit.cover)),
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 50),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                MenuOption(
+                    option: 'My Routes',
+                    route: '/MyRoute',
+                    icon: Icons.favorite),
+                MenuOption(
+                    option: 'Use An Elevator',
+                    route: '/MyRoute',
+                    icon: Icons.elevator),
+                MenuOption(
+                    option: 'Share Access',
+                    route: '/MyRoute',
+                    icon: Icons.share),
+                MenuOption(
+                    option: 'Setting', route: '/MyRoute', icon: Icons.settings),
+              ],
+            ),
           ),
         ),
       ),
