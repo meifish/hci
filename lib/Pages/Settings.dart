@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:hci/Widgets/HomePageWidgets/MenuOption.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+import '../Widgets/HomePageWidgets/MenuOption.dart';
 
-  final String title;
+class Settings extends StatefulWidget {
+  Settings({Key key, this.title}):super(key: key);
 
+  final String title; 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _SettingsState createState() => _SettingsState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,21 +29,21 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 MenuOption(
-                    option: 'My Routes',
+                    option: 'Door Holding \ntime',
                     route: '/MyRoute',
                     icon: Icons.favorite),
                 MenuOption(
-                    option: 'Use An Elevator',
+                    option: 'My buildings',
                     route: '/MyRoute',
                     icon: Icons.elevator),
                 MenuOption(
-                    option: 'Share Access',
+                    option: 'Add buildings',
                     route: '/MyRoute',
                     icon: Icons.share),
                 MenuOption(
-                  option: 'Setting',
-                  route: '/Settings',
-                  icon: Icons.settings,
+                  option: 'Log out',
+                  route: '/MyRoute',
+                  icon: Icons.settings, 
                 ),
               ],
             ),

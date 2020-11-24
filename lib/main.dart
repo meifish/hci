@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Pages/MyRoute.dart';
 import 'Pages/HomePage.dart';
+import 'Pages/Settings.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         home: MyHomePage(title: 'SSE'),
         routes: {
           '/MyRoute': (context) => MyRoute(),
+          '/Settings': (context) => Settings(title: "Setting"),
         });
   }
 }
