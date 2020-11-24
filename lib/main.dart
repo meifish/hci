@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Pages/MyRoute.dart';
+import 'Pages/HomePage.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,35 +21,7 @@ class MyApp extends StatelessWidget {
         ),
         home: MyHomePage(title: 'SSE'),
         routes: {
-          '/My Route': (context) => MyRoute(),
+          '/MyRoute': (context) => MyRoute(),
         });
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: null,
-        tooltip: '',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
   }
 }

@@ -8,6 +8,8 @@ class MyRoute extends StatefulWidget {
 class _MyRouteState extends State<MyRoute> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Center(child: Text('My Route')),
+    );
   }
 }
