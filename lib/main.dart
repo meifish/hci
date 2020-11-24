@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.cyan[600],
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: MyHomePage(title: 'SSE'),
+        home: MyHomePage(title: 'Home Page'),
         routes: {
           '/MyRoute': (context) => MyRoute(),
         });
