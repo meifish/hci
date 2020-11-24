@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hci/sizeConfig.dart';
+import 'package:hci/my_flutter_app_icons.dart';
 
 class RouteCard extends StatefulWidget {
   String name;
@@ -36,7 +37,8 @@ class _RouteCardState extends State<RouteCard> {
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                    color: Color(0xff2C8BFF),
+                    // color: Color(0xff2C8BFF),
+                    color: Colors.cyan[600],
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(25),
                         topRight: Radius.circular(25))),
@@ -75,7 +77,7 @@ class _RouteCardState extends State<RouteCard> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Icon(
-                              Icons.access_time,
+                              Icons.meeting_room,
                               size: SizeConfig.safeBlockHorizontal * 5,
                               color: Colors.white,
                             ),
@@ -87,16 +89,21 @@ class _RouteCardState extends State<RouteCard> {
                               style: TextStyle(
                                   fontSize:
                                       SizeConfig.safeBlockHorizontal * 4.7,
-                                  color: Colors.white70),
+                                  color: Colors.white),
                             ),
-                            Icon(Icons.keyboard_arrow_left),
-                            Icon(Icons.keyboard_arrow_right),
+                            SizedBox(width: 5),
+                            Icon(
+                              MyFlutterApp.arrows_alt_h,
+                              color: Colors.white70,
+                              size: 15,
+                            ),
+                            SizedBox(width: 5),
                             Text(
                               widget.floor2,
                               style: TextStyle(
                                   fontSize:
                                       SizeConfig.safeBlockHorizontal * 4.7,
-                                  color: Colors.white70),
+                                  color: Colors.white),
                             ),
                           ],
                         ),
@@ -177,11 +184,11 @@ class _RouteCardState extends State<RouteCard> {
                                   onTap: () {},
                                   child: Container(
                                     //color: Colors.red,
-                                    child: Icon(
-                                      Icons.info,
-                                      size: SizeConfig.safeBlockHorizontal * 9,
-                                      color: Colors.blue,
-                                    ),
+                                    child: Icon(Icons.info,
+                                        size:
+                                            SizeConfig.safeBlockHorizontal * 9,
+                                        // color: Colors.blue,
+                                        color: Colors.cyan[600]),
                                   ),
                                 ),
                               ),
@@ -211,7 +218,8 @@ class _RouteCardState extends State<RouteCard> {
                                           borderRadius:
                                               BorderRadius.circular(50)),
                                       textColor: Colors.white,
-                                      color: Colors.blue,
+                                      // color: Colors.blue,
+                                      color: Colors.cyan[600],
                                       child: Text(
                                         'Activate',
                                         style: TextStyle(
@@ -243,7 +251,7 @@ class _RouteCardState extends State<RouteCard> {
                                       textColor: Colors.black26,
                                       color: Color(0xffEBEFFB),
                                       child: Text(
-                                        'Decline',
+                                        'Set Default',
                                         style: TextStyle(
                                           color: Color(0xff878FA6),
                                           fontSize:
