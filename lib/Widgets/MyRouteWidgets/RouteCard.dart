@@ -6,6 +6,7 @@ import 'package:hci/Widgets/MyRouteWidgets/PopupMenuButton.dart';
 
 class RouteCard extends StatefulWidget {
   String name;
+  String img;
   String floor1;
   String floor2;
   String time_from;
@@ -15,6 +16,7 @@ class RouteCard extends StatefulWidget {
   Map<String, dynamic> route;
   RouteCard({this.route}) {
     name = route["name"];
+    img = route["img"];
     floor1 = route["floor-1"].toString();
     floor2 = route["floor-2"].toString();
     time_from = route["time-from"];
@@ -38,7 +40,6 @@ class _RouteCardState extends State<RouteCard> {
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                    // color: Color(0xff2C8BFF),
                     color: Colors.cyan[600],
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(25),
@@ -62,16 +63,7 @@ class _RouteCardState extends State<RouteCard> {
                                     color: Colors.white),
                               ),
                             ),
-
                             PopupMenu(),
-                            // IconButton(
-                            //   onPressed: () {},
-                            //   icon: Icon(
-                            //     Icons.more_vert,
-                            //     color: Colors.white70,
-                            //     size: SizeConfig.safeBlockHorizontal * 7,
-                            //   ),
-                            // )
                           ],
                         ),
                       ),
@@ -143,8 +135,7 @@ class _RouteCardState extends State<RouteCard> {
                                   height: SizeConfig.safeBlockVertical * 8,
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
-                                          image: AssetImage(
-                                              'assets/images/gym.jpg')),
+                                          image: AssetImage(widget.img)),
                                       color: Colors.grey[200],
                                       borderRadius: BorderRadius.circular(16)),
                                 ),

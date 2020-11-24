@@ -20,6 +20,7 @@ class _MyRouteState extends State<MyRoute> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+        backgroundColor: Colors.white70,
         appBar: AppBar(
           title: Text('My Routes'),
         ),
@@ -28,8 +29,11 @@ class _MyRouteState extends State<MyRoute> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List<Map<String, dynamic>> routes = snapshot.data;
-
-                return RouteCard(route: routes[0]);
+                return ListView.builder(
+                    itemCount: routes.length,
+                    itemBuilder: (context, index) {
+                      return RouteCard(route: routes[index]);
+                    });
               } else {
                 return Center(child: CircularProgressIndicator());
               }
