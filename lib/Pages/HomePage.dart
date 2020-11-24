@@ -41,7 +41,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     route: '/MyRoute',
                     icon: Icons.share),
                 MenuOption(
-                    option: 'Setting', route: '/MyRoute', icon: Icons.settings),
+                  option: 'Setting',
+                  route: '/Settings',
+                  icon: Icons.settings,
+                ),
               ],
             ),
           ),

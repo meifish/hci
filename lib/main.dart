@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'Pages/Settings/AddBuilding.dart';
+import 'Pages/Settings/DoorHoldingTime.dart';
 import 'Pages/MyRoute.dart';
 import 'Pages/HomePage.dart';
+import 'Pages/Settings/MyBuildings.dart';
+import 'Pages/Settings.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,6 +26,10 @@ class MyApp extends StatelessWidget {
         home: MyHomePage(title: 'Home Page'),
         routes: {
           '/MyRoute': (context) => MyRoute(),
+          '/Settings': (context) => Settings(title: "Setting"),
+          '/DoorHold': (context) => DoorHoldingTime(),
+          '/MyBuildings': (context) => MyBuildings(),
+          '/AddBuilding': (context) => AddBuilding(),
         });
   }
 }
