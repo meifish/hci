@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MenuOption extends StatefulWidget {
   var icon;
@@ -24,7 +25,7 @@ class _MenuOptionState extends State<MenuOption> {
         },
         child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50.0),
+            borderRadius: BorderRadius.circular(35.0),
           ),
           color: Colors.cyan[600],
           elevation: 10,
@@ -32,15 +33,16 @@ class _MenuOptionState extends State<MenuOption> {
             padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
             child: Row(
               children: [
-                Icon(widget.icon, size: 60),
+                Icon(widget.icon, size: 60, color: Colors.white),
                 SizedBox(
                   width: 15,
                 ),
                 Text(widget.option,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold))
+                    style: GoogleFonts.roboto(
+                      color: Colors.white,
+                      letterSpacing: 1,
+                      fontSize: 30,
+                    ))
               ],
             ),
           ),

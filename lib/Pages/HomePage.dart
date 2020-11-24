@@ -19,7 +19,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 50),
+          padding: EdgeInsets.symmetric(vertical: 80),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
