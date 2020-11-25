@@ -12,7 +12,6 @@ class RouteCard extends StatefulWidget {
   String floor2;
   String time_from;
   String time_to;
-  List<dynamic> on_day;
 
   List<Map<String, dynamic>> my_routes;
   int index;
@@ -22,11 +21,10 @@ class RouteCard extends StatefulWidget {
     route = my_routes[index];
     name = route["name"];
     img = route["img"];
-    floor1 = route["floor-1"].toString();
-    floor2 = route["floor-2"].toString();
-    time_from = route["time-from"];
-    time_to = route["time-to"];
-    on_day = route["on-day"];
+    floor1 = route["floor1"].toString();
+    floor2 = route["floor2"].toString();
+    time_from = route["timeFrom"];
+    time_to = route["timeTo"];
   }
 
   @override

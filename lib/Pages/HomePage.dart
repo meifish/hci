@@ -81,7 +81,12 @@ class _MyHomePageState extends State<MyHomePage> {
     List<Map<String, dynamic>> my_routes = await _loadJSONRoutes();
 
     for (int i = 0; i < my_routes.length; i++) {
+      print("JSON entry");
+      print(my_routes[i]);
       MyRoute r = MyRoute.fromMap(my_routes[i]);
+      print('converted MyRoute from JSON');
+      print(r.toString());
+
       int returnId = await _model.insertRoute(r);
       print('Sql inserted: $returnId');
     }

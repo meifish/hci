@@ -18,7 +18,6 @@ class MyRoute {
     this.is_anytime,
     this.time_from,
     this.time_to,
-    this.on_day,
   });
 
   MyRoute.fromMap(Map<String, dynamic> map) {
@@ -27,6 +26,8 @@ class MyRoute {
     this.img = map['img'];
     this.floor_1 = map['floor1'];
     this.floor_2 = map['floor2'];
+    this.time_from = map['timeFrom'];
+    this.time_to = map['timeTo'];
     this.is_anytime = (map['isAnytime'] == 1) ? true : false;
     if (map['sun'] == 1) on_day[0] = true;
     if (map['mon'] == 1) on_day[1] = true;
@@ -45,12 +46,12 @@ class MyRoute {
       'floor2': this.floor_2,
       'isAnytime': this.is_anytime ? 1 : 0,
       'sun': this.on_day[0] ? 1 : 0,
-      'mon': this.on_day[0] ? 1 : 0,
-      'tue': this.on_day[0] ? 1 : 0,
-      'wed': this.on_day[0] ? 1 : 0,
-      'thu': this.on_day[0] ? 1 : 0,
-      'fri': this.on_day[0] ? 1 : 0,
-      'sat': this.on_day[0] ? 1 : 0,
+      'mon': this.on_day[1] ? 1 : 0,
+      'tue': this.on_day[2] ? 1 : 0,
+      'wed': this.on_day[3] ? 1 : 0,
+      'thu': this.on_day[4] ? 1 : 0,
+      'fri': this.on_day[5] ? 1 : 0,
+      'sat': this.on_day[6] ? 1 : 0,
     };
 
     if (id != null) {
@@ -61,6 +62,6 @@ class MyRoute {
   }
 
   String toString() {
-    return '$id/$name/$img/$floor_1/$floor_2/$is_anytime';
+    return '$id/$name/$img/$floor_1/$floor_2/$is_anytime/$time_from/$time_to/$on_day';
   }
 }

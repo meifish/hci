@@ -13,26 +13,26 @@ class RouteEditForm extends StatefulWidget {
 
   RouteEditForm({this.my_routes, this.index}) {
     route = my_routes[index];
-    isAnytime = route["is-anytime"];
-    if (route["on-day"].contains("Sun")) {
+    isAnytime = route["isAnytime"] == 1 ? true : false;
+    if (route["sun"] == 1) {
       _daySelections[0] = true;
     }
-    if (route["on-day"].contains("Mon")) {
+    if (route["mon"] == 1) {
       _daySelections[1] = true;
     }
-    if (route["on-day"].contains("Tue")) {
+    if (route["tue"] == 1) {
       _daySelections[2] = true;
     }
-    if (route["on-day"].contains("Wed")) {
+    if (route["wed"] == 1) {
       _daySelections[3] = true;
     }
-    if (route["on-day"].contains("Thur")) {
+    if (route["thu"] == 1) {
       _daySelections[4] = true;
     }
-    if (route["on-day"].contains("Fri")) {
+    if (route["fri"] == 1) {
       _daySelections[5] = true;
     }
-    if (route["on-day"].contains("Sat")) {
+    if (route["sat"] == 1) {
       _daySelections[6] = true;
     }
   }
@@ -171,7 +171,7 @@ class _RouteEditFormState extends State<RouteEditForm> {
                                           LengthLimitingTextInputFormatter(1)
                                         ],
                                         initialValue:
-                                            widget.route["floor-1"].toString(),
+                                            widget.route["floor1"].toString(),
                                         validator: (floor1) {
                                           if (!floor1.isEmpty) {
                                             if ((int.parse(floor1) > 48) ||
@@ -183,7 +183,7 @@ class _RouteEditFormState extends State<RouteEditForm> {
                                         textInputAction: TextInputAction.next,
                                         autofocus: true,
                                         onSaved: (floor1) {
-                                          widget.route["floor-1"] = floor1;
+                                          widget.route["floor1"] = floor1;
                                         },
                                       ),
                                     ),
@@ -225,21 +225,21 @@ class _RouteEditFormState extends State<RouteEditForm> {
                                           LengthLimitingTextInputFormatter(1)
                                         ],
                                         initialValue:
-                                            widget.route["floor-2"].toString(),
+                                            widget.route["floor2"].toString(),
                                         validator: (floor2) {
                                           if (!floor2.isEmpty) {
                                             if ((int.parse(floor2) > 48) ||
                                                 (int.parse(floor2) < 1) ||
                                                 (int.parse(floor2) ==
-                                                    widget.route["floor-2"]))
+                                                    widget.route["floor2"]))
                                               return 'A valid floor is required. Two floors cannot have same value';
                                           }
                                           return null;
                                         },
                                         textInputAction: TextInputAction.next,
                                         autofocus: true,
-                                        onSaved: (floor1) {
-                                          widget.route["floor-1"] = floor1;
+                                        onSaved: (floor2) {
+                                          widget.route["floor2"] = floor2;
                                         },
                                       ),
                                     ),
@@ -255,10 +255,13 @@ class _RouteEditFormState extends State<RouteEditForm> {
                                   child: Transform.scale(
                                     scale: 1.25,
                                     child: Switch(
-                                      value: widget.route["is-anytime"],
+                                      value: widget.route["isAnytime"] == 1
+                                          ? true
+                                          : false,
                                       onChanged: (value) {
                                         setState(() {
-                                          widget.route["is-anytime"] = value;
+                                          widget.route["isAnytime"] =
+                                              value ? 1 : 0;
                                           print(value);
                                         });
                                       },
@@ -269,7 +272,7 @@ class _RouteEditFormState extends State<RouteEditForm> {
                                 ),
                               ]),
                               Container(
-                                  child: widget.route["is-anytime"]
+                                  child: widget.route["isAnytime"] == 1
                                       ? Text("")
                                       : Column(children: [
                                           Row(children: [
@@ -303,10 +306,10 @@ class _RouteEditFormState extends State<RouteEditForm> {
                                                       1)
                                                 ],
                                                 initialValue: widget
-                                                        .route["time-from"]
+                                                        .route["timeFrom"]
                                                         .isEmpty
                                                     ? "00:00"
-                                                    : widget.route["time-from"],
+                                                    : widget.route["timeFrom"],
                                                 validator: (time) {
                                                   if (!time.isEmpty) {
                                                     if (!time.contains(":")) {
@@ -334,7 +337,7 @@ class _RouteEditFormState extends State<RouteEditForm> {
                                                     TextInputAction.next,
                                                 autofocus: true,
                                                 onSaved: (time_from) {
-                                                  widget.route["time-from"] =
+                                                  widget.route["timeFrom"] =
                                                       time_from;
                                                 },
                                               ),
@@ -370,10 +373,9 @@ class _RouteEditFormState extends State<RouteEditForm> {
                                                       1)
                                                 ],
                                                 initialValue: widget
-                                                        .route["time-to"]
-                                                        .isEmpty
+                                                        .route["timeTo"].isEmpty
                                                     ? "23:59"
-                                                    : widget.route["time-to"],
+                                                    : widget.route["timeTo"],
                                                 validator: (time) {
                                                   if (!time.isEmpty) {
                                                     if (!time.contains(":")) {
@@ -400,9 +402,9 @@ class _RouteEditFormState extends State<RouteEditForm> {
                                                 textInputAction:
                                                     TextInputAction.next,
                                                 autofocus: true,
-                                                onSaved: (time_from) {
-                                                  widget.route["time-from"] =
-                                                      time_from;
+                                                onSaved: (time_to) {
+                                                  widget.route["timeTo"] =
+                                                      time_to;
                                                 },
                                               ),
                                             ),

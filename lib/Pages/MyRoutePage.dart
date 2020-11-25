@@ -6,8 +6,6 @@ import 'package:hci/Model/Route.dart';
 import 'package:hci/sizeConfig.dart';
 
 class MyRoutePage extends StatefulWidget {
-  List<Map<String, dynamic>> routes;
-
   @override
   _MyRoutePageState createState() => _MyRoutePageState();
 }
@@ -18,6 +16,7 @@ class _MyRoutePageState extends State<MyRoutePage> {
   void initState() {
     super.initState();
     _loadJSONRoutes();
+    _loadAll();
   }
 
   @override
@@ -33,8 +32,8 @@ class _MyRoutePageState extends State<MyRoutePage> {
             future: _loadJSONRoutes(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                // List<Map<String, dynamic>> routes = snapshot.data;
-                List<Map<String, dynamic>> routes = widget.routes;
+                List<Map<String, dynamic>> routes = snapshot.data;
+                // List<Map<String, dynamic>> routes = widget.routes;
 
                 return ListView.builder(
                     itemCount: routes.length,
@@ -47,18 +46,17 @@ class _MyRoutePageState extends State<MyRoutePage> {
             }));
   }
 
-  // Future<List<Map<String, dynamic>>> _loadJSONRoutes() async {
-  Future<int> _loadJSONRoutes() async {
+  Future<List<Map<String, dynamic>>> _loadJSONRoutes() async {
+    // Future<int> _loadJSONRoutes() async {
     final saved_routes = await DefaultAssetBundle.of(context)
         .loadString('assets/data/myRoutes.json');
 
     final List<Map<String, dynamic>> routes =
         await jsonDecode(saved_routes).cast<Map<String, dynamic>>();
 
-    widget.routes = routes;
     setState(() {});
-    // return routes;
-    return 1;
+    return routes;
+    // return 1;
   }
 
   Future<List<MyRoute>> _loadAll() async {
