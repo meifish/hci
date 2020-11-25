@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     icon: Icons.favorite),
                 MenuOption(
                     option: 'Use An Elevator',
-                    route: '/MyRoute',
+                    route: '/UseElevator',
                     icon: Icons.elevator),
                 MenuOption(
                     option: 'Share Access',
