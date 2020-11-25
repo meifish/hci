@@ -39,12 +39,14 @@ class MyRoute {
   }
 
   Map<String, dynamic> toMap() {
-    var map = <String, dynamic>{
+    Map<String, dynamic> map = {
       'name': this.name,
       'img': this.img,
       'floor1': this.floor_1,
       'floor2': this.floor_2,
       'isAnytime': this.is_anytime ? 1 : 0,
+      'timeFrom': this.time_from,
+      'timeTo': this.time_to,
       'sun': this.on_day[0] ? 1 : 0,
       'mon': this.on_day[1] ? 1 : 0,
       'tue': this.on_day[2] ? 1 : 0,

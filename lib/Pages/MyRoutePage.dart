@@ -15,8 +15,6 @@ class _MyRoutePageState extends State<MyRoutePage> {
 
   void initState() {
     super.initState();
-    _loadJSONRoutes();
-    _loadAll();
   }
 
   @override
@@ -29,11 +27,10 @@ class _MyRoutePageState extends State<MyRoutePage> {
           title: Text('My Routes'),
         ),
         body: FutureBuilder(
-            future: _loadJSONRoutes(),
+            future: _loadAll(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List<Map<String, dynamic>> routes = snapshot.data;
-                // List<Map<String, dynamic>> routes = widget.routes;
 
                 return ListView.builder(
                     itemCount: routes.length,
@@ -46,26 +43,16 @@ class _MyRoutePageState extends State<MyRoutePage> {
             }));
   }
 
-  Future<List<Map<String, dynamic>>> _loadJSONRoutes() async {
-    // Future<int> _loadJSONRoutes() async {
-    final saved_routes = await DefaultAssetBundle.of(context)
-        .loadString('assets/data/myRoutes.json');
-
-    final List<Map<String, dynamic>> routes =
-        await jsonDecode(saved_routes).cast<Map<String, dynamic>>();
-
-    setState(() {});
-    return routes;
-    // return 1;
-  }
-
-  Future<List<MyRoute>> _loadAll() async {
+  Future<List<Map<String, dynamic>>> _loadAll() async {
     List<MyRoute> all_routes = await _model.getAllRoutes();
+    print("pulling from DB");
+    print(all_routes);
 
-    print("loading");
-    for (MyRoute r in all_routes) {
-      print(r);
+    List<Map<String, dynamic>> routes_map = [];
+
+    for (int i = 0; i < all_routes.length; i++) {
+      routes_map.add(all_routes[i].toMap());
     }
-    return all_routes;
+    return routes_map;
   }
 }

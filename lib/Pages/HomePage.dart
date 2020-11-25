@@ -92,5 +92,9 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     print('Done db import');
     setState(() {});
+
+    // print('pulling from DB');
+    // List<MyRoute> all_routes = await _model.getAllRoutes();
+    // print(all_routes);
   }
 }
