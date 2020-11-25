@@ -28,7 +28,9 @@ class _MyRouteState extends State<MyRoute> {
             future: _loadJSONRoutes(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                List<Map<String, dynamic>> routes = snapshot.data;
+                // List<Map<String, dynamic>> routes = snapshot.data;
+                List<Map<String, dynamic>> routes = widget.routes;
+
                 return ListView.builder(
                     itemCount: routes.length,
                     itemBuilder: (context, index) {
@@ -40,15 +42,17 @@ class _MyRouteState extends State<MyRoute> {
             }));
   }
 
-  Future<List<Map<String, dynamic>>> _loadJSONRoutes() async {
+  // Future<List<Map<String, dynamic>>> _loadJSONRoutes() async {
+  Future<int> _loadJSONRoutes() async {
     final saved_routes = await DefaultAssetBundle.of(context)
         .loadString('assets/data/myRoutes.json');
 
     final List<Map<String, dynamic>> routes =
-        jsonDecode(saved_routes).cast<Map<String, dynamic>>();
+        await jsonDecode(saved_routes).cast<Map<String, dynamic>>();
 
     widget.routes = routes;
     setState(() {});
-    return routes;
+    // return routes;
+    return 1;
   }
 }

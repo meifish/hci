@@ -1,5 +1,6 @@
 [
  {
+    "id" : 1,
     "name" : "Condo-default",
     "img": "assets/images/condo.jpg",
     "floor-1" : 1,
@@ -10,6 +11,7 @@
     "on-day" : ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]
  },
  {
+   "id" : 2,
     "name": "Condo-Gym",
     "img": "assets/images/gym.jpg",
     "floor-1" : 44,
