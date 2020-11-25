@@ -32,7 +32,7 @@ class _MyRouteState extends State<MyRoute> {
                 return ListView.builder(
                     itemCount: routes.length,
                     itemBuilder: (context, index) {
-                      return RouteCard(route: routes[index]);
+                      return RouteCard(my_routes: routes, index: index);
                     });
               } else {
                 return Center(child: CircularProgressIndicator());

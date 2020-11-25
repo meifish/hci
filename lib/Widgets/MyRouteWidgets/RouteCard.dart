@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hci/sizeConfig.dart';
 import 'package:hci/my_flutter_app_icons.dart';
 import 'package:hci/Widgets/MyRouteWidgets/PopupMenuButton.dart';
+import 'package:hci/Pages/RouteEditForm.dart';
 
 class RouteCard extends StatefulWidget {
   String name;
@@ -13,8 +14,12 @@ class RouteCard extends StatefulWidget {
   String time_to;
   List<dynamic> on_day;
 
+  List<Map<String, dynamic>> my_routes;
+  int index;
   Map<String, dynamic> route;
-  RouteCard({this.route}) {
+
+  RouteCard({this.my_routes, this.index}) {
+    route = my_routes[index];
     name = route["name"];
     img = route["img"];
     floor1 = route["floor-1"].toString();
@@ -63,7 +68,9 @@ class _RouteCardState extends State<RouteCard> {
                                     color: Colors.white),
                               ),
                             ),
-                            PopupMenu(),
+                            PopupMenu(
+                                my_routes: widget.my_routes,
+                                index: widget.index),
                           ],
                         ),
                       ),

@@ -1,9 +1,10 @@
 [
  {
-    "name": "Condo-default",
+    "name" : "Condo-default",
     "img": "assets/images/condo.jpg",
     "floor-1" : 1,
     "floor-2" : 44,
+    "is-anytime" : true,
     "time-from" : "00:00",
     "time-to" : "23:59",
     "on-day" : ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]
@@ -13,8 +14,9 @@
     "img": "assets/images/gym.jpg",
     "floor-1" : 44,
     "floor-2" : 5,
+    "is-anytime" : false,
     "time-from" : "6:00",
     "time-to" : "8:00",
-    "on-day" : ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]
+    "on-day" : ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]
  }
 ]

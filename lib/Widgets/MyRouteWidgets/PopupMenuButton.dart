@@ -1,6 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:hci/Pages/RouteEditForm.dart';
 
-Widget PopupMenu() => PopupMenuButton<int>(
+class PopupMenu extends StatefulWidget {
+  int index;
+  List<Map<String, dynamic>> my_routes;
+
+  PopupMenu({this.my_routes, this.index});
+
+  @override
+  _PopupMenuState createState() => _PopupMenuState();
+}
+
+class _PopupMenuState extends State<PopupMenu> {
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton<int>(
       itemBuilder: (context) => [
         PopupMenuItem(
           value: 1,
@@ -15,6 +29,15 @@ Widget PopupMenu() => PopupMenuButton<int>(
           ),
         ),
       ],
+      onSelected: (value) {
+        if (value == 1) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => RouteEditForm(
+                      my_routes: widget.my_routes, index: widget.index)));
+        }
+      },
       offset: Offset(0, 100),
       icon: Icon(
         Icons.more_vert,
@@ -23,3 +46,5 @@ Widget PopupMenu() => PopupMenuButton<int>(
       elevation: 4,
       padding: EdgeInsets.fromLTRB(0, 20, 10, 5),
     );
+  }
+}
