@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     icon: Icons.elevator),
                 MenuOption(
                     option: 'Share Access',
-                    route: '/MyRoute',
+                    route: '/ShareAcess',
                     icon: Icons.share),
                 MenuOption(
                   option: 'Setting',
@@ -92,9 +92,5 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     print('Done db import');
     setState(() {});
-
-    // print('pulling from DB');
-    // List<MyRoute> all_routes = await _model.getAllRoutes();
-    // print(all_routes);
   }
 }

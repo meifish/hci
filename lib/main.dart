@@ -3,6 +3,7 @@ import 'Pages/Settings/AddBuilding.dart';
 import 'Pages/Settings/DoorHoldingTime.dart';
 import 'Pages/MyRoutePage.dart';
 import 'Pages/HomePage.dart';
+import 'Pages/ShareAccessPage.dart';
 import 'Pages/Settings/MyBuildings.dart';
 import 'Pages/Settings.dart';
 
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         home: MyHomePage(title: 'Home Page'),
         routes: {
           '/MyRoute': (context) => MyRoutePage(),
+          '/ShareAcess': (context) => ShareAccessPage(),
           '/Settings': (context) => Settings(title: "Setting"),
           '/DoorHold': (context) => DoorHoldingTime(),
           '/MyBuildings': (context) => MyBuildings(),
