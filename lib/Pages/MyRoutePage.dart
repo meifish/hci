@@ -35,7 +35,10 @@ class _MyRoutePageState extends State<MyRoutePage> {
                 return ListView.builder(
                     itemCount: routes.length,
                     itemBuilder: (context, index) {
-                      return RouteCard(my_routes: routes, index: index);
+                      return RouteCard(
+                          my_routes: routes,
+                          index: index,
+                          notifyParent: refresh);
                     });
               } else {
                 return Center(child: CircularProgressIndicator());
@@ -54,5 +57,10 @@ class _MyRoutePageState extends State<MyRoutePage> {
       routes_map.add(all_routes[i].toMap());
     }
     return routes_map;
+  }
+
+  void refresh() {
+    print("I am called");
+    setState(() {});
   }
 }

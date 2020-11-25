@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:hci/sizeConfig.dart';
 import 'package:hci/Widgets/MyRouteWidgets/RaisedButton.dart';
 import 'package:hci/my_flutter_app_icons.dart';
+import 'package:hci/Model/RouteDBModel.dart';
+import 'package:hci/Model/Route.dart';
 
 class RouteEditForm extends StatefulWidget {
   int index;
@@ -10,8 +12,9 @@ class RouteEditForm extends StatefulWidget {
   Map<String, dynamic> route;
   bool isAnytime;
   List<bool> _daySelections = List.generate(7, (_) => false);
+  final Function() callbackfunc;
 
-  RouteEditForm({this.my_routes, this.index}) {
+  RouteEditForm({this.my_routes, this.index, @required this.callbackfunc}) {
     route = my_routes[index];
     isAnytime = route["isAnytime"] == 1 ? true : false;
     if (route["sun"] == 1) {
@@ -46,6 +49,8 @@ class _RouteEditFormState extends State<RouteEditForm> {
 
   @override
   Widget build(BuildContext context) {
+    final _model = RouteModel();
+
     new SizeConfig().init(context);
     return Scaffold(
       backgroundColor: Colors.white,
@@ -168,7 +173,7 @@ class _RouteEditFormState extends State<RouteEditForm> {
                                                 color: Colors.cyan),
                                             hintStyle: TextStyle(fontSize: 12)),
                                         inputFormatters: [
-                                          LengthLimitingTextInputFormatter(1)
+                                          LengthLimitingTextInputFormatter(2)
                                         ],
                                         initialValue:
                                             widget.route["floor1"].toString(),
@@ -183,7 +188,8 @@ class _RouteEditFormState extends State<RouteEditForm> {
                                         textInputAction: TextInputAction.next,
                                         autofocus: true,
                                         onSaved: (floor1) {
-                                          widget.route["floor1"] = floor1;
+                                          widget.route["floor1"] =
+                                              int.parse(floor1);
                                         },
                                       ),
                                     ),
@@ -222,7 +228,7 @@ class _RouteEditFormState extends State<RouteEditForm> {
                                                 color: Colors.cyan),
                                             hintStyle: TextStyle(fontSize: 12)),
                                         inputFormatters: [
-                                          LengthLimitingTextInputFormatter(1)
+                                          LengthLimitingTextInputFormatter(2)
                                         ],
                                         initialValue:
                                             widget.route["floor2"].toString(),
@@ -239,7 +245,8 @@ class _RouteEditFormState extends State<RouteEditForm> {
                                         textInputAction: TextInputAction.next,
                                         autofocus: true,
                                         onSaved: (floor2) {
-                                          widget.route["floor2"] = floor2;
+                                          widget.route["floor2"] =
+                                              int.parse(floor2);
                                         },
                                       ),
                                     ),
@@ -303,7 +310,7 @@ class _RouteEditFormState extends State<RouteEditForm> {
                                                     hintStyle: TextStyle(fontSize: 12)),
                                                 inputFormatters: [
                                                   LengthLimitingTextInputFormatter(
-                                                      1)
+                                                      5)
                                                 ],
                                                 initialValue: widget
                                                         .route["timeFrom"]
@@ -370,7 +377,7 @@ class _RouteEditFormState extends State<RouteEditForm> {
                                                     hintStyle: TextStyle(fontSize: 12)),
                                                 inputFormatters: [
                                                   LengthLimitingTextInputFormatter(
-                                                      1)
+                                                      5)
                                                 ],
                                                 initialValue: widget
                                                         .route["timeTo"].isEmpty
@@ -482,13 +489,36 @@ class _RouteEditFormState extends State<RouteEditForm> {
                           SizedBox(
                             width: 150,
                             child: RaisedButton(
-                                child: Text("Save"),
-                                onPressed: () {},
-                                textColor: Colors.white,
-                                color: Colors.cyan[600],
-                                splashColor: Colors.cyanAccent,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0))),
+                              child: Text("Save"),
+                              textColor: Colors.white,
+                              color: Colors.cyan[600],
+                              splashColor: Colors.cyanAccent,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                              onPressed: () async {
+                                _formKey.currentState.save();
+                                widget.route["sun"] =
+                                    widget._daySelections[0] ? 1 : 0;
+                                widget.route["mon"] =
+                                    widget._daySelections[1] ? 1 : 0;
+                                widget.route["tue"] =
+                                    widget._daySelections[2] ? 1 : 0;
+                                widget.route["wed"] =
+                                    widget._daySelections[3] ? 1 : 0;
+                                widget.route["thu"] =
+                                    widget._daySelections[4] ? 1 : 0;
+                                widget.route["fri"] =
+                                    widget._daySelections[5] ? 1 : 0;
+                                widget.route["sat"] =
+                                    widget._daySelections[6] ? 1 : 0;
+                                MyRoute r = MyRoute.fromMap(widget.route);
+                                print("Read MyRoute as");
+                                print(r);
+                                await _model.insertRoute(r);
+                                widget.callbackfunc();
+                                Navigator.pop(context);
+                              },
+                            ),
                           ),
                         ],
                       )

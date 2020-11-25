@@ -12,12 +12,14 @@ class RouteCard extends StatefulWidget {
   String floor2;
   String time_from;
   String time_to;
+  final Function() notifyParent;
 
   List<Map<String, dynamic>> my_routes;
   int index;
   Map<String, dynamic> route;
+  String days = '';
 
-  RouteCard({this.my_routes, this.index}) {
+  RouteCard({this.my_routes, this.index, @required this.notifyParent}) {
     route = my_routes[index];
     name = route["name"];
     img = route["img"];
@@ -25,6 +27,17 @@ class RouteCard extends StatefulWidget {
     floor2 = route["floor2"].toString();
     time_from = route["timeFrom"];
     time_to = route["timeTo"];
+    if (route["isAnytime"] == 1) {
+      days += "Any Time";
+    } else {
+      if (route["sun"] == 1) days += "Sun ";
+      if (route["mon"] == 1) days += "Mon ";
+      if (route["tue"] == 1) days += "Tue ";
+      if (route["wed"] == 1) days += "Wed ";
+      if (route["thu"] == 1) days += "Thu ";
+      if (route["fri"] == 1) days += "Fri ";
+      if (route["sat"] == 1) days += "Sat ";
+    }
   }
 
   @override
@@ -68,7 +81,8 @@ class _RouteCardState extends State<RouteCard> {
                             ),
                             PopupMenu(
                                 my_routes: widget.my_routes,
-                                index: widget.index),
+                                index: widget.index,
+                                callbackfunc: widget.notifyParent),
                           ],
                         ),
                       ),
@@ -166,7 +180,7 @@ class _RouteCardState extends State<RouteCard> {
                                     ),
                                     Text(
                                       widget.time_to,
-                                      maxLines: 3,
+                                      maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                           fontSize:
@@ -178,17 +192,19 @@ class _RouteCardState extends State<RouteCard> {
                                 ),
                               ),
                               Expanded(
-                                flex: 2,
+                                flex: 5,
                                 child: GestureDetector(
                                   onTap: () {},
                                   child: Container(
-                                    //color: Colors.red,
-                                    child: Icon(Icons.info,
-                                        size:
-                                            SizeConfig.safeBlockHorizontal * 9,
-                                        // color: Colors.blue,
-                                        color: Colors.cyan[600]),
-                                  ),
+                                      //color: Colors.red,
+                                      child: Text(widget.days,
+                                          style: TextStyle(fontSize: 16))
+                                      // child: Icon(Icons.info,
+                                      //     size:
+                                      //         SizeConfig.safeBlockHorizontal * 9,
+                                      //     // color: Colors.blue,
+                                      //     color: Colors.cyan[600]),
+                                      ),
                                 ),
                               ),
                             ],
@@ -233,34 +249,6 @@ class _RouteCardState extends State<RouteCard> {
                                 ),
                                 SizedBox(
                                   width: 10,
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: SizedBox(
-                                    height: SizeConfig.safeBlockVertical * 6,
-                                    child: RaisedButton(
-                                      disabledElevation: 0,
-                                      focusElevation: 0,
-                                      highlightElevation: 0,
-                                      hoverElevation: 0,
-                                      elevation: 0,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(50)),
-                                      textColor: Colors.black26,
-                                      color: Color(0xffEBEFFB),
-                                      child: Text(
-                                        'Set Default',
-                                        style: TextStyle(
-                                          color: Color(0xff878FA6),
-                                          fontSize:
-                                              SizeConfig.safeBlockHorizontal *
-                                                  5,
-                                        ),
-                                      ),
-                                      onPressed: () {},
-                                    ),
-                                  ),
                                 ),
                               ],
                             ),
