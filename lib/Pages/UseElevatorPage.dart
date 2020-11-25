@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hci/sizeConfig.dart';
+import 'package:hci/Widgets/UseElevatorWidgets/ElevatorSummonDiag.dart';
 
 class UseElevatorPage extends StatefulWidget {
   String floor = "44";
@@ -47,6 +48,11 @@ class _UseElevatorPageState extends State<UseElevatorPage> {
                           setState(() {
                             widget.up_img = "assets/images/up_2.png";
                           });
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return ElevatorSummonDiag();
+                              });
                         },
                       ),
                       SizedBox(width: 110),
@@ -59,6 +65,11 @@ class _UseElevatorPageState extends State<UseElevatorPage> {
                           setState(() {
                             widget.down_img = "assets/images/down_2.png";
                           });
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return ElevatorSummonDiag();
+                              });
                         },
                       ),
                     ],
