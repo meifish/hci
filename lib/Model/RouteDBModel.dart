@@ -36,7 +36,7 @@ class RouteModel {
 
     if (returnMap.length > 0) {
       for (int i = 0; i < returnMap.length; i++) {
-        result.add(MyRoute.fromMap(returnMap[i])); // q
+        result.add(MyRoute.fromMap(returnMap[i]));
       }
       print(result);
     }

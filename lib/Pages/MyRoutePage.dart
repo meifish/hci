@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:hci/Widgets/MyRouteWidgets/RouteCard.dart';
+import 'package:hci/Model/RouteDBModel.dart';
+import 'package:hci/Model/Route.dart';
 import 'package:hci/sizeConfig.dart';
 
-class MyRoute extends StatefulWidget {
+class MyRoutePage extends StatefulWidget {
   List<Map<String, dynamic>> routes;
 
   @override
-  _MyRouteState createState() => _MyRouteState();
+  _MyRoutePageState createState() => _MyRoutePageState();
 }
 
-class _MyRouteState extends State<MyRoute> {
+class _MyRoutePageState extends State<MyRoutePage> {
+  final _model = RouteModel();
+
   void initState() {
     super.initState();
     _loadJSONRoutes();
@@ -19,6 +23,7 @@ class _MyRouteState extends State<MyRoute> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+
     return Scaffold(
         backgroundColor: Colors.white70,
         appBar: AppBar(
@@ -54,5 +59,15 @@ class _MyRouteState extends State<MyRoute> {
     setState(() {});
     // return routes;
     return 1;
+  }
+
+  Future<List<MyRoute>> _loadAll() async {
+    List<MyRoute> all_routes = await _model.getAllRoutes();
+
+    print("loading");
+    for (MyRoute r in all_routes) {
+      print(r);
+    }
+    return all_routes;
   }
 }
