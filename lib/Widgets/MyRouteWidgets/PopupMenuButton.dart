@@ -36,13 +36,15 @@ class _PopupMenuState extends State<PopupMenu> {
       ],
       onSelected: (value) async {
         if (value == 1) {
-          Navigator.push(
+          final result = await Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => RouteEditForm(
                       my_routes: widget.my_routes,
                       index: widget.index,
                       callbackfunc: widget.callbackfunc)));
+          Scaffold.of(context)
+            ..showSnackBar(SnackBar(content: Text("$result")));
         }
         if (value == 2) {
           // delete from sql
