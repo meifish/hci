@@ -9,34 +9,44 @@ import 'package:hci/Model/Route.dart';
 class RouteEditForm extends StatefulWidget {
   int index;
   List<Map<String, dynamic>> my_routes;
-  Map<String, dynamic> route;
+  Map<String, dynamic> route = {};
   bool isAnytime;
   List<bool> _daySelections = List.generate(7, (_) => false);
   final Function() callbackfunc;
 
   RouteEditForm({this.my_routes, this.index, @required this.callbackfunc}) {
-    route = my_routes[index];
-    isAnytime = route["isAnytime"] == 1 ? true : false;
-    if (route["sun"] == 1) {
-      _daySelections[0] = true;
-    }
-    if (route["mon"] == 1) {
-      _daySelections[1] = true;
-    }
-    if (route["tue"] == 1) {
-      _daySelections[2] = true;
-    }
-    if (route["wed"] == 1) {
-      _daySelections[3] = true;
-    }
-    if (route["thu"] == 1) {
-      _daySelections[4] = true;
-    }
-    if (route["fri"] == 1) {
-      _daySelections[5] = true;
-    }
-    if (route["sat"] == 1) {
-      _daySelections[6] = true;
+    if (this.my_routes != null) {
+      route = my_routes[index];
+      isAnytime = route["isAnytime"] == 1 ? true : false;
+      if (route["sun"] == 1) {
+        _daySelections[0] = true;
+      }
+      if (route["mon"] == 1) {
+        _daySelections[1] = true;
+      }
+      if (route["tue"] == 1) {
+        _daySelections[2] = true;
+      }
+      if (route["wed"] == 1) {
+        _daySelections[3] = true;
+      }
+      if (route["thu"] == 1) {
+        _daySelections[4] = true;
+      }
+      if (route["fri"] == 1) {
+        _daySelections[5] = true;
+      }
+      if (route["sat"] == 1) {
+        _daySelections[6] = true;
+      }
+    } else {
+      route["name"] = "";
+      route["img"] = "assets/images/condo.jpg";
+      route["floor1"] = null;
+      route["floor2"] = null;
+      route["isAnytime"] = 1;
+      route["timeFrom"] = "00:00";
+      route["timeTo"] = "23:59";
     }
   }
 
@@ -123,7 +133,7 @@ class _RouteEditFormState extends State<RouteEditForm> {
                             }
                             return null;
                           },
-                          textInputAction: TextInputAction.next,
+                          // textInputAction: TextInputAction.next,
                           autofocus: true,
                           onSaved: (name) {
                             widget.route["name"] = name;
@@ -175,8 +185,10 @@ class _RouteEditFormState extends State<RouteEditForm> {
                                         inputFormatters: [
                                           LengthLimitingTextInputFormatter(2)
                                         ],
-                                        initialValue:
-                                            widget.route["floor1"].toString(),
+                                        initialValue: (widget.route["floor1"] ==
+                                                null)
+                                            ? ""
+                                            : widget.route["floor1"].toString(),
                                         validator: (floor1) {
                                           if (!floor1.isEmpty) {
                                             if ((int.parse(floor1) > 48) ||
@@ -230,8 +242,10 @@ class _RouteEditFormState extends State<RouteEditForm> {
                                         inputFormatters: [
                                           LengthLimitingTextInputFormatter(2)
                                         ],
-                                        initialValue:
-                                            widget.route["floor2"].toString(),
+                                        initialValue: (widget.route["floor2"] ==
+                                                null)
+                                            ? ""
+                                            : widget.route["floor2"].toString(),
                                         validator: (floor2) {
                                           if (!floor2.isEmpty) {
                                             if ((int.parse(floor2) > 48) ||

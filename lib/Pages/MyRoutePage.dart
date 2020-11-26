@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'package:hci/Pages/RouteEditForm.dart';
 import 'package:hci/Widgets/MyRouteWidgets/RouteCard.dart';
 import 'package:hci/Model/RouteDBModel.dart';
 import 'package:hci/Model/Route.dart';
@@ -22,28 +23,39 @@ class _MyRoutePageState extends State<MyRoutePage> {
     SizeConfig().init(context);
 
     return Scaffold(
-        backgroundColor: Colors.white70,
-        appBar: AppBar(
-          title: Text('My Routes'),
-        ),
-        body: FutureBuilder(
-            future: _loadAll(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                List<Map<String, dynamic>> routes = snapshot.data;
+      backgroundColor: Colors.white70,
+      appBar: AppBar(
+        title: Text('My Routes'),
+      ),
+      body: FutureBuilder(
+          future: _loadAll(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<Map<String, dynamic>> routes = snapshot.data;
 
-                return ListView.builder(
-                    itemCount: routes.length,
-                    itemBuilder: (context, index) {
-                      return RouteCard(
-                          my_routes: routes,
-                          index: index,
-                          notifyParent: refresh);
-                    });
-              } else {
-                return Center(child: CircularProgressIndicator());
-              }
-            }));
+              return ListView.builder(
+                  itemCount: routes.length,
+                  itemBuilder: (context, index) {
+                    return RouteCard(
+                        my_routes: routes, index: index, notifyParent: refresh);
+                  });
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final result = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => RouteEditForm(callbackfunc: refresh)));
+          Scaffold.of(context)
+            ..showSnackBar(SnackBar(content: Text("$result")));
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.cyan,
+      ),
+    );
   }
 
   Future<List<Map<String, dynamic>>> _loadAll() async {
