@@ -69,7 +69,7 @@ class _MyBuildingsState extends State<MyBuildings> {
               print('been deleted');
               // this.buildings = buildings;
               // this.preference.buildings = buildings;
-
+              setState(() {});
               Navigator.of(context).pop();
             },
           ),
@@ -81,6 +81,7 @@ class _MyBuildingsState extends State<MyBuildings> {
   Future<List<String>> _loadAll() async{
     this.preference = await _pmodel.getPreference();
     var buildn = this.preference.buildings;
+    print('buildn: $buildn');
     return buildn;
   }
 
@@ -116,6 +117,7 @@ class _MyBuildingsState extends State<MyBuildings> {
                       icon: Icon(Icons.delete),
                       onPressed: () {
                         deleteDialog(context, i);
+                        print("been poped");
                         setState(() {});
                       },
                     ),
