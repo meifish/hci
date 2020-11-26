@@ -1,7 +1,4 @@
 [{
-    "userName": "Anonymous",
-    "password": "11111111",
-    "holdtime": "regular",
-    "buildings": [{"Condo": "street #, CITY, PROVINCE, POSTAL"}, {"Work": "street #, CITY, PROVINCE, POSTAL"}],
-    "myRoutes": ["Condo-default", "Condo-Gym"]
+    "doorHoldT": "regular",
+    "buildings": ["Condo", "Work"],
 }]
