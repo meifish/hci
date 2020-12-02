@@ -69,10 +69,10 @@ class _UseElevatorPageState extends State<UseElevatorPage> {
                     onTap: () {},
                   )),
               Positioned(
-                  top: 150,
-                  left: 180,
+                  bottom: 110,
+                  right: (SizeConfig.screenWidth / 2.0) - 300 * 0.1,
                   child: RotatedBox(
-                    quarterTurns: 1,
+                    quarterTurns: 3,
                     child: Container(
                       width: 300,
                       child: Slider(
@@ -93,7 +93,7 @@ class _UseElevatorPageState extends State<UseElevatorPage> {
                     ),
                   )),
               Positioned(
-                  left: 30,
+                  left: 10,
                   bottom: 10,
                   child: Row(
                     children: [
@@ -113,7 +113,9 @@ class _UseElevatorPageState extends State<UseElevatorPage> {
                               });
                         },
                       ),
-                      SizedBox(width: 110),
+                      SizedBox(
+                          width:
+                              MediaQuery.of(context).size.width - 2 * 120 - 15),
                       InkWell(
                         child: Image(
                             image: AssetImage(widget.down_img),
