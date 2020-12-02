@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hci/Model/Preference.dart';
+import 'package:hci/Model/PreferenceDBModel.dart';
 import 'dart:convert';
 import 'package:hci/Widgets/HomePageWidgets/MenuOption.dart';
 import 'package:hci/Model/RouteDBModel.dart';
@@ -15,11 +17,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _model = RouteModel();
+  final _pmodel = PreferenceModel();
 
   @override
   void initState() {
     super.initState();
     _initMyRoute();
+    // _initPreference();
+    // setState(() {});
   }
 
   @override
@@ -91,6 +96,34 @@ class _MyHomePageState extends State<MyHomePage> {
       print('Sql inserted: $returnId');
     }
     print('Done db import');
+
+    // INIT PREFERENCE
+
+    print('Seting default Preference...');
+    Preference preference =
+        Preference(doorHoldT: 'regular', buildings: ['Condo', 'Work']);
+    print('preference set to: $preference');
+    print('preference to map: ${preference.toMap()}');
+    int preferenceID = await _pmodel.insert(preference);
+    preference.id = preferenceID;
+    print('preference set to (after insert): $preference');
+    print('Done initiated Preference');
+
+    // END INIT PREFERENCE
+
     setState(() {});
+  }
+
+  void _initPreference() async {
+    print('Seting default Preference...');
+    Preference preference =
+        Preference(doorHoldT: 'regular', buildings: ['Condo', 'Work']);
+    print('preference set to: $preference');
+    print('preference to map: ${preference.toMap()}');
+    int preferenceID = await _pmodel.insert(preference);
+    preference.id = preferenceID;
+    var p = _pmodel.getPreference();
+    print('preference set to (after insert): $p');
+    print('Done initiated Preference');
   }
 }

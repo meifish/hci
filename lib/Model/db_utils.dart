@@ -4,8 +4,9 @@ import 'package:sqflite/sqflite.dart';
 
 class DBUtils {
   static Future<Database> init() async {
+    // delete('MyRoutesDB.db');
     var database = openDatabase(
-      path.join(await getDatabasesPath(), 'MyRoutesDB.db'),
+      path.join(await getDatabasesPath(), 'MyRoutesDB2.db'),
       onCreate: (db, version) {
         db.execute("CREATE TABLE myRoute(" +
             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -24,6 +25,14 @@ class DBUtils {
             "fri INTEGER DEFAULT 1, " +
             "sat INTEGER DEFAULT 1 " +
             ")");
+        db.execute("CREATE TABLE preference(" +
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "doorHoldT TEXT, " +
+            "buildings TEXT " +
+            ")");
+        // db.execute("INSERT TABLE preference("+
+        //           "doorHoldT"
+        // );
       },
       version: 1,
     );

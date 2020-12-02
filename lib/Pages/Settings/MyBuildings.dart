@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hci/Model/Preference.dart';
+import 'package:hci/Model/PreferenceDBModel.dart';
 
 class MyBuildings extends StatefulWidget {
   @override
@@ -7,9 +9,35 @@ class MyBuildings extends StatefulWidget {
 }
 
 class _MyBuildingsState extends State<MyBuildings> {
+  final _pmodel = PreferenceModel();
+  Preference preference;
+  List<String> buildings = [];
   int selected = -1;
 
-  deleteDialog(context) {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadPref();
+    // setState(() {
+    // });
+  }
+
+  void loadPref() async {
+    this.preference = await _pmodel.getPreference();
+  }
+
+  List<String> getBuildings() {
+    if (preference != null) {
+      this.buildings = preference.buildings;
+      print('buildings: $buildings');
+      print('been here');
+      return preference.buildings;
+    }
+    return [];
+  }
+
+  deleteDialog(context, index) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -20,9 +48,7 @@ class _MyBuildingsState extends State<MyBuildings> {
               Text("Are you sure you want to delete this building's access? "),
               Text(
                 '(You will need to request the access code again)',
-                style: GoogleFonts.roboto(
-                  color: Colors.grey[600],
-                ),
+                style: GoogleFonts.roboto(color: Colors.grey[600]),
               ),
             ],
           ),
@@ -36,7 +62,14 @@ class _MyBuildingsState extends State<MyBuildings> {
           ),
           FlatButton(
             child: Text('Delete'),
-            onPressed: () {
+            onPressed: () async{
+              this.buildings.removeAt(index);
+              this.preference.buildings = buildings;
+              await _pmodel.update(preference);
+              print('been deleted');
+              // this.buildings = buildings;
+              // this.preference.buildings = buildings;
+              setState(() {});
               Navigator.of(context).pop();
             },
           ),
@@ -45,148 +78,58 @@ class _MyBuildingsState extends State<MyBuildings> {
     );
   }
 
+  Future<List<String>> _loadAll() async{
+    this.preference = await _pmodel.getPreference();
+    var buildn = this.preference.buildings;
+    print('buildn: $buildn');
+    return buildn;
+  }
+
   @override
   Widget build(BuildContext context) {
+    loadPref();
+    this.buildings = getBuildings();
+    print('buildings: $buildings');
     return Scaffold(
       appBar: AppBar(
         title: Text('My building list'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: ListView(
-          children: [
-            ListTile(
-              title: Text("Condo"),
-              subtitle: Text("Address: street #, City, Province, POSTAL"),
-              trailing: Wrap(
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () {
-                      deleteDialog(context);
-                    },
-                  ),
-                ],
-              ),
-              // tileColor: selected == 0 ? Colors.blue[100] : Colors.white,
-              // onTap: () {
-              //   setState(() {
-              //     selected = 0;
-              //   });
-              // },
-            ),
-            ListTile(
-              title: Text("Work"),
-              subtitle: Text("Address: street #, City, Province, POSTAL"),
-              trailing: Wrap(
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () {
-                      deleteDialog(context);
-                    },
-                  ),
-                ],
-              ),
-              // tileColor: selected == 1 ? Colors.blue[100] : Colors.white,
-              // onTap: () {
-              //   setState(() {
-              //     selected = 1;
-              //   });
-              // },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/*
-
-class BuildingsTile extends StatefulWidget {
-  String buildingName;
-  String address;
-  // int selected;
-
-  BuildingsTile({this.buildingName, this.address});
-
-  @override
-  _BuildingsTileState createState() => _BuildingsTileState();
-}
-
-class _BuildingsTileState extends State<BuildingsTile> {
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(widget.buildingName),
-      subtitle: Text(widget.address),
-      trailing: Wrap(
-        children: <Widget>[
-          IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.delete),
-            onPressed: () {
-              deleteDialog(context);
-            },
-          ),
-        ],
-      ),
-      // tileColor: Colors.white,
-      // onTap: () {
-      //   setState(() {
-      //     widget.selected = 1;
-      //   });
-      // },
-    );
-  }
-
-  deleteDialog(context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text("Delete"),
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[
-              Text("Are you sure you want to delete this building's access? "),
-              Text(
-                '(You will need to request the access code again)',
-                style: GoogleFonts.roboto(
-                  color: Colors.grey[600],
+      body: FutureBuilder(
+        future: _loadAll(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            var b = snapshot.data;
+            return Padding(
+          padding: const EdgeInsets.all(10),
+          child: ListView.builder(
+            itemCount: b.length,
+            itemBuilder: (BuildContext context, int i) {
+              return ListTile(
+                title: Text(b[i]),
+                subtitle: Text("Address: street #, City, Province, POSTAL"),
+                trailing: Wrap(
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        deleteDialog(context, i);
+                        print("been poped");
+                        setState(() {});
+                      },
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        ),
-        actions: [
-          FlatButton(
-            child: Text('Cancel'),
-            onPressed: () {
-              Navigator.of(context).pop();
+              );
             },
           ),
-          FlatButton(
-            child: Text('Delete'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
+        );
+          }
+        }
       ),
     );
   }
 }
-
-*/
