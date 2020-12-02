@@ -69,7 +69,7 @@ class _UseElevatorPageState extends State<UseElevatorPage> {
                     onTap: () {},
                   )),
               Positioned(
-                  bottom: 110,
+                  bottom: 140,
                   right: (SizeConfig.screenWidth / 2.0) - 300 * 0.1,
                   child: RotatedBox(
                     quarterTurns: 3,
