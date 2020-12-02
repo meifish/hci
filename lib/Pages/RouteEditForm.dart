@@ -69,10 +69,11 @@ class _RouteEditFormState extends State<RouteEditForm> {
         bottom: true,
         child: Form(
             key: _formKey,
-            child: ListView(padding: EdgeInsets.all(15), children: [
+            child:
+                ListView(padding: EdgeInsets.fromLTRB(0, 0, 0, 0), children: [
               Row(children: [
                 Padding(
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.fromLTRB(15, 20, 15, 0),
                   child: Container(
                     height: 100,
                     width: 100,
@@ -99,7 +100,7 @@ class _RouteEditFormState extends State<RouteEditForm> {
 
               ////////////////////////////////////////////////////////////////
               Padding(
-                padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
+                padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -107,37 +108,40 @@ class _RouteEditFormState extends State<RouteEditForm> {
                       Container(
                         height: 60,
                         // width: 200,
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            labelStyle:
-                                TextStyle(color: Colors.cyan, fontSize: 18),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              labelStyle:
+                                  TextStyle(color: Colors.cyan, fontSize: 18),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.cyan),
+                              ),
+                              hintText: 'Name your route',
+                              labelText: 'Route Name',
                             ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.cyan),
-                            ),
-                            hintText: 'Name your route',
-                            labelText: 'Route Name',
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(20)
+                            ],
+                            initialValue: widget.route["name"],
+                            validator: (name) {
+                              if (name.isEmpty) {
+                                return 'Route name is required';
+                              }
+                              if (name.length < 1) {
+                                return 'Route name is too short';
+                              }
+                              return null;
+                            },
+                            // textInputAction: TextInputAction.next,
+                            autofocus: true,
+                            onSaved: (name) {
+                              widget.route["name"] = name;
+                            },
                           ),
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(20)
-                          ],
-                          initialValue: widget.route["name"],
-                          validator: (name) {
-                            if (name.isEmpty) {
-                              return 'Route name is required';
-                            }
-                            if (name.length < 1) {
-                              return 'Route name is too short';
-                            }
-                            return null;
-                          },
-                          // textInputAction: TextInputAction.next,
-                          autofocus: true,
-                          onSaved: (name) {
-                            widget.route["name"] = name;
-                          },
                         ),
                       ),
                       SizedBox(height: 30),
@@ -151,152 +155,164 @@ class _RouteEditFormState extends State<RouteEditForm> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Take me between",
-                                  style: TextStyle(
-                                      color: Colors.cyan, fontSize: 16)),
-                              SizedBox(height: 10),
-                              Row(
-                                  // mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      height: 40,
-                                      width: 80,
-                                      child: TextFormField(
-                                        decoration: const InputDecoration(
-                                            enabledBorder: OutlineInputBorder(
-                                                borderRadius: const BorderRadius.all(
-                                                    const Radius.circular(
-                                                        70.0)),
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey)),
-                                            focusedBorder: OutlineInputBorder(
-                                                borderRadius: const BorderRadius.all(
-                                                    const Radius.circular(
-                                                        70.0)),
-                                                borderSide: BorderSide(
-                                                    color: Colors.cyan)),
-                                            hintText:
-                                                'The order does not matter',
-                                            labelText: 'Floor 1',
-                                            labelStyle: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.cyan),
-                                            hintStyle: TextStyle(fontSize: 12)),
-                                        inputFormatters: [
-                                          LengthLimitingTextInputFormatter(2)
-                                        ],
-                                        initialValue: (widget.route["floor1"] ==
-                                                null)
-                                            ? ""
-                                            : widget.route["floor1"].toString(),
-                                        validator: (floor1) {
-                                          if (!floor1.isEmpty) {
-                                            if ((int.parse(floor1) > 48) ||
-                                                (int.parse(floor1) < 1))
-                                              return 'A valid floor is required';
-                                          }
-                                          return null;
-                                        },
-                                        textInputAction: TextInputAction.next,
-                                        autofocus: true,
-                                        onSaved: (floor1) {
-                                          widget.route["floor1"] =
-                                              int.parse(floor1);
-                                        },
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          10, 0, 10, 0),
-                                      child: Icon(
-                                        MyFlutterApp.arrows_alt_h,
-                                        color: Colors.cyan,
-                                        size: 15,
-                                      ),
-                                    ),
-                                    // to floor
-                                    Container(
-                                      height: 40,
-                                      width: 80,
-                                      child: TextFormField(
-                                        decoration: const InputDecoration(
-                                            enabledBorder: OutlineInputBorder(
-                                                borderRadius: const BorderRadius.all(
-                                                    const Radius.circular(
-                                                        70.0)),
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey)),
-                                            focusedBorder: OutlineInputBorder(
-                                                borderRadius: const BorderRadius.all(
-                                                    const Radius.circular(
-                                                        70.0)),
-                                                borderSide: BorderSide(
-                                                    color: Colors.cyan)),
-                                            hintText:
-                                                'The order does not matter',
-                                            labelText: 'Floor 2',
-                                            labelStyle: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.cyan),
-                                            hintStyle: TextStyle(fontSize: 12)),
-                                        inputFormatters: [
-                                          LengthLimitingTextInputFormatter(2)
-                                        ],
-                                        initialValue: (widget.route["floor2"] ==
-                                                null)
-                                            ? ""
-                                            : widget.route["floor2"].toString(),
-                                        validator: (floor2) {
-                                          if (!floor2.isEmpty) {
-                                            if ((int.parse(floor2) > 48) ||
-                                                (int.parse(floor2) < 1) ||
-                                                (int.parse(floor2) ==
-                                                    widget.route["floor2"]))
-                                              return 'A valid floor is required. Two floors cannot have same value';
-                                          }
-                                          return null;
-                                        },
-                                        textInputAction: TextInputAction.next,
-                                        autofocus: true,
-                                        onSaved: (floor2) {
-                                          widget.route["floor2"] =
-                                              int.parse(floor2);
-                                        },
-                                      ),
-                                    ),
-                                  ]),
-                              Row(children: [
-                                Text("Anytime",
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                child: Text("Take me between",
                                     style: TextStyle(
                                         color: Colors.cyan, fontSize: 16)),
-                                SizedBox(width: 20),
-                                Container(
-                                  width: 60,
-                                  height: 80,
-                                  child: Transform.scale(
-                                    scale: 1.25,
-                                    child: Switch(
-                                      value: widget.route["isAnytime"] == 1
-                                          ? true
-                                          : false,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          widget.route["isAnytime"] =
-                                              value ? 1 : 0;
-                                          print(value);
-                                        });
-                                      },
-                                      activeTrackColor: Colors.cyanAccent,
-                                      activeColor: Colors.cyan,
+                              ),
+                              SizedBox(height: 10),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                child: Row(
+                                    // mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        height: 40,
+                                        width: 80,
+                                        child: TextFormField(
+                                          decoration: const InputDecoration(
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderRadius: const BorderRadius.all(
+                                                      const Radius.circular(
+                                                          70.0)),
+                                                  borderSide: BorderSide(
+                                                      color: Colors.grey)),
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderRadius: const BorderRadius.all(
+                                                      const Radius.circular(
+                                                          70.0)),
+                                                  borderSide: BorderSide(
+                                                      color: Colors.cyan)),
+                                              hintText:
+                                                  'The order does not matter',
+                                              labelText: 'Floor 1',
+                                              labelStyle: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.cyan),
+                                              hintStyle: TextStyle(fontSize: 12)),
+                                          inputFormatters: [
+                                            LengthLimitingTextInputFormatter(2)
+                                          ],
+                                          initialValue:
+                                              (widget.route["floor1"] == null)
+                                                  ? ""
+                                                  : widget.route["floor1"]
+                                                      .toString(),
+                                          validator: (floor1) {
+                                            if (!floor1.isEmpty) {
+                                              if ((int.parse(floor1) > 48) ||
+                                                  (int.parse(floor1) < 1))
+                                                return 'A valid floor is required';
+                                            }
+                                            return null;
+                                          },
+                                          textInputAction: TextInputAction.next,
+                                          autofocus: true,
+                                          onSaved: (floor1) {
+                                            widget.route["floor1"] =
+                                                int.parse(floor1);
+                                          },
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            10, 0, 10, 0),
+                                        child: Icon(
+                                          MyFlutterApp.arrows_alt_h,
+                                          color: Colors.cyan,
+                                          size: 15,
+                                        ),
+                                      ),
+                                      // to floor
+                                      Container(
+                                        height: 40,
+                                        width: 80,
+                                        child: TextFormField(
+                                          decoration: const InputDecoration(
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderRadius: const BorderRadius.all(
+                                                      const Radius.circular(
+                                                          70.0)),
+                                                  borderSide: BorderSide(
+                                                      color: Colors.grey)),
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderRadius: const BorderRadius.all(
+                                                      const Radius.circular(
+                                                          70.0)),
+                                                  borderSide: BorderSide(
+                                                      color: Colors.cyan)),
+                                              hintText:
+                                                  'The order does not matter',
+                                              labelText: 'Floor 2',
+                                              labelStyle: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.cyan),
+                                              hintStyle: TextStyle(fontSize: 12)),
+                                          inputFormatters: [
+                                            LengthLimitingTextInputFormatter(2)
+                                          ],
+                                          initialValue:
+                                              (widget.route["floor2"] == null)
+                                                  ? ""
+                                                  : widget.route["floor2"]
+                                                      .toString(),
+                                          validator: (floor2) {
+                                            if (!floor2.isEmpty) {
+                                              if ((int.parse(floor2) > 48) ||
+                                                  (int.parse(floor2) < 1) ||
+                                                  (int.parse(floor2) ==
+                                                      widget.route["floor2"]))
+                                                return 'A valid floor is required. Two floors cannot have same value';
+                                            }
+                                            return null;
+                                          },
+                                          textInputAction: TextInputAction.next,
+                                          autofocus: true,
+                                          onSaved: (floor2) {
+                                            widget.route["floor2"] =
+                                                int.parse(floor2);
+                                          },
+                                        ),
+                                      ),
+                                    ]),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                child: Row(children: [
+                                  Text("Anytime",
+                                      style: TextStyle(
+                                          color: Colors.cyan, fontSize: 16)),
+                                  SizedBox(width: 20),
+                                  Container(
+                                    width: 60,
+                                    height: 80,
+                                    child: Transform.scale(
+                                      scale: 1.25,
+                                      child: Switch(
+                                        value: widget.route["isAnytime"] == 1
+                                            ? true
+                                            : false,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            widget.route["isAnytime"] =
+                                                value ? 1 : 0;
+                                            print(value);
+                                          });
+                                        },
+                                        activeTrackColor: Colors.cyanAccent,
+                                        activeColor: Colors.cyan,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ]),
+                                ]),
+                              ),
                               Container(
                                   child: widget.route["isAnytime"] == 1
                                       ? Text("")
                                       : Column(children: [
                                           Row(children: [
+                                            SizedBox(width: 15),
                                             Container(
                                               height: 40,
                                               width: 80,
@@ -484,57 +500,61 @@ class _RouteEditFormState extends State<RouteEditForm> {
                                         ])),
                             ]),
                       ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 150,
-                            child: RaisedButton(
-                                child: Text("Discard"),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              // width: 150,
+                              child: RaisedButton(
+                                  child: Text("Discard"),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  textColor: Colors.white,
+                                  color: Colors.grey,
+                                  splashColor: Colors.cyanAccent,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(10.0))),
+                            ),
+                            SizedBox(width: 15),
+                            SizedBox(
+                              // width: 150,
+                              child: RaisedButton(
+                                child: Text("Save"),
                                 textColor: Colors.white,
-                                color: Colors.grey,
+                                color: Colors.cyan[600],
                                 splashColor: Colors.cyanAccent,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0))),
-                          ),
-                          SizedBox(width: 15),
-                          SizedBox(
-                            width: 150,
-                            child: RaisedButton(
-                              child: Text("Save"),
-                              textColor: Colors.white,
-                              color: Colors.cyan[600],
-                              splashColor: Colors.cyanAccent,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              onPressed: () async {
-                                _formKey.currentState.save();
-                                widget.route["sun"] =
-                                    widget._daySelections[0] ? 1 : 0;
-                                widget.route["mon"] =
-                                    widget._daySelections[1] ? 1 : 0;
-                                widget.route["tue"] =
-                                    widget._daySelections[2] ? 1 : 0;
-                                widget.route["wed"] =
-                                    widget._daySelections[3] ? 1 : 0;
-                                widget.route["thu"] =
-                                    widget._daySelections[4] ? 1 : 0;
-                                widget.route["fri"] =
-                                    widget._daySelections[5] ? 1 : 0;
-                                widget.route["sat"] =
-                                    widget._daySelections[6] ? 1 : 0;
-                                MyRoute r = MyRoute.fromMap(widget.route);
-                                print("Read MyRoute as");
-                                print(r);
-                                await _model.insertRoute(r);
-                                widget.callbackfunc();
-                                Navigator.pop(context, "My route updated.");
-                              },
+                                    borderRadius: BorderRadius.circular(10.0)),
+                                onPressed: () async {
+                                  _formKey.currentState.save();
+                                  widget.route["sun"] =
+                                      widget._daySelections[0] ? 1 : 0;
+                                  widget.route["mon"] =
+                                      widget._daySelections[1] ? 1 : 0;
+                                  widget.route["tue"] =
+                                      widget._daySelections[2] ? 1 : 0;
+                                  widget.route["wed"] =
+                                      widget._daySelections[3] ? 1 : 0;
+                                  widget.route["thu"] =
+                                      widget._daySelections[4] ? 1 : 0;
+                                  widget.route["fri"] =
+                                      widget._daySelections[5] ? 1 : 0;
+                                  widget.route["sat"] =
+                                      widget._daySelections[6] ? 1 : 0;
+                                  MyRoute r = MyRoute.fromMap(widget.route);
+                                  print("Read MyRoute as");
+                                  print(r);
+                                  await _model.insertRoute(r);
+                                  widget.callbackfunc();
+                                  Navigator.pop(context, "My route updated.");
+                                },
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       )
                     ]),
               ),
