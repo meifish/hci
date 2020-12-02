@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hci/Model/Preference.dart';
 import 'package:hci/Model/PreferenceDBModel.dart';
+import 'package:hci/Pages/Settings/EditBuilding.dart';
 
 class MyBuildings extends StatefulWidget {
   @override
@@ -62,7 +63,7 @@ class _MyBuildingsState extends State<MyBuildings> {
           ),
           FlatButton(
             child: Text('Delete'),
-            onPressed: () async{
+            onPressed: () async {
               this.buildings.removeAt(index);
               this.preference.buildings = buildings;
               await _pmodel.update(preference);
@@ -78,7 +79,7 @@ class _MyBuildingsState extends State<MyBuildings> {
     );
   }
 
-  Future<List<String>> _loadAll() async{
+  Future<List<String>> _loadAll() async {
     this.preference = await _pmodel.getPreference();
     var buildn = this.preference.buildings;
     print('buildn: $buildn');
@@ -95,41 +96,51 @@ class _MyBuildingsState extends State<MyBuildings> {
         title: Text('My building list'),
       ),
       body: FutureBuilder(
-        future: _loadAll(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            var b = snapshot.data;
-            return Padding(
-          padding: const EdgeInsets.all(10),
-          child: ListView.builder(
-            itemCount: b.length,
-            itemBuilder: (BuildContext context, int i) {
-              return ListTile(
-                title: Text(b[i]),
-                subtitle: Text("Address: street #, City, Province, POSTAL"),
-                trailing: Wrap(
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.edit),
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () {
-                        deleteDialog(context, i);
-                        print("been poped");
-                        setState(() {});
-                      },
-                    ),
-                  ],
+          future: _loadAll(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              var b = snapshot.data;
+              return Padding(
+                padding: const EdgeInsets.all(10),
+                child: ListView.builder(
+                  itemCount: b.length,
+                  itemBuilder: (BuildContext context, int i) {
+                    return ListTile(
+                      title: Text(b[i]),
+                      subtitle:
+                          Text("Address: street #, City, Province, POSTAL"),
+                      trailing: Wrap(
+                        children: <Widget>[
+                          IconButton(
+                            icon: Icon(Icons.edit),
+                            onPressed: () async {
+                              List<String> newBuildings = await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EditBuilding(
+                                          buildings: b, index: i)));
+                              if (newBuildings != null) {
+                                this.preference.buildings = newBuildings;
+                                await _pmodel.update(preference);
+                                setState(() {});
+                              }
+                            },
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              deleteDialog(context, i);
+                              setState(() {});
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
               );
-            },
-          ),
-        );
-          }
-        }
-      ),
+            }
+          }),
     );
   }
 }
