@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hci/Pages/Logout.dart';
 import 'Pages/Settings/AddBuilding.dart';
 import 'Pages/Settings/DoorHoldingTime.dart';
 import 'Pages/MyRoutePage.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
           '/DoorHold': (context) => DoorHoldingTime(),
           '/MyBuildings': (context) => MyBuildings(),
           '/AddBuilding': (context) => AddBuilding(),
+          '/Logout': (context) => Logout(),
         });
   }
 }

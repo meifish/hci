@@ -43,7 +43,7 @@ class _SettingsState extends State<Settings> {
                     icon: Icons.add),
                 LogOutOption(
                   option: 'Log out',
-                  route: '/MyRoute',
+                  route: '/Logout',
                   icon: Icons.exit_to_app, 
                 ),
               ],
